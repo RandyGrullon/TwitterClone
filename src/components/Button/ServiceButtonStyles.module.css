@@ -1,0 +1,23 @@
+@tailwind utilities;
+
+@layer utilities {
+  .button {
+    @apply flex flex-col justify-center items-center rounded-xl w-24 h-24 sm:w-32 sm:h-32 cursor-pointer transition-colors border border-gray-400 drop-shadow-lg;
+  }
+
+  .inactiveButton {
+    @apply bg-gray-400 text-dark-400;
+  }
+
+  .label {
+    @apply font-heading font-bold uppercase mt-1 text-xs sm:text-lg;
+  }
+
+  .selected {
+    @apply bg-blue-500 text-white;
+  }
+
+  .unselected {
+    @apply bg-white text-blue-500;
+  }
+}

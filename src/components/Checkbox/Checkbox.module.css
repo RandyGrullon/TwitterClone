@@ -1,0 +1,37 @@
+.checkboxInput {
+  display: none;
+}
+
+.checkboxInput:checked + label .checkbox::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.checkbox {
+  border: 1px solid #3d3d3d;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  position: relative;
+  background-color: #fff;
+}
+
+.checkbox:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 11px;
+  height: 11px;
+  background-color: #0483cb;
+  border-radius: 50%;
+  transition: all 150ms linear;
+}
+
+.label {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
