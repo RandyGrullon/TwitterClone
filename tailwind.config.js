@@ -17,9 +17,6 @@ module.exports = {
         },
       },
       colors: {
-        warning:{
-          "500": "#DB9D47[500]",
-        },
         // base
         light: "#F7F5F6",
         dark: {
@@ -29,9 +26,13 @@ module.exports = {
         gray: {
           300: "#F7F5F6",
           400: "#E3E3E3",
+          450: "#E5E7EB",
           500: "#D9D9D9",
+          550: "#A0AEC0",
           600: "#475569",
           700: "#3D3D3D",
+          800: "#333333",
+          900: "#1F2937",
         },
         // blue
         blue: {

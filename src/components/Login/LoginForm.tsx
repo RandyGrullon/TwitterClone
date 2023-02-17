@@ -1,12 +1,10 @@
 import { useForm } from "react-hook-form";
-import logoTap from "../../resources/images/LogoTap.png";
 import Input from "../Input";
 import Button from "../Button";
-import Checkbox from "../Checkbox";
 import ThreeDotsLoader from "../Loaders/ThreeDots";
+import GoogleLogo from "../../resources/images/GoogleLogo.svg";
+import AppleLogo from "../../resources/images/AppleLogo.svg";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { taskApi } from "../../api";
 
 interface LoginFormProps {
   onSubmit: (formData: any) => void;
@@ -25,123 +23,121 @@ const LoginForm = ({ onSubmit, isSubmitting }: LoginFormProps) => {
     onSubmit(formData);
   };
 
-  const [task, setTask] = useState([]);
-
-  const getTask = async () => {
-    const result = await taskApi.getAllTask();
-    // console.log("result", result);
-  };
-
-  useEffect(() => {
-    getTask();
-  }, []);
-
-  var requestOptions = {
-    method: "GET",
-    redirect: "follow",
-  };
-
-  //entrar lo sacado del fetch en setTask
-  fetch("http://localhost:8000/api/task")
-    .then((response) => response.json())
-    .then((result) => setTask(result))
-    // .catch((error) => console.log("error", error));
-
-
-
-
   return (
     <>
-      <div className=" bg-white w-[450px] h-auto p-6 rounded-lg">
-        {task.map(
-          (task: { id: number; title: string; description: string }) => (
-            <div key={task.id}>
-              <p>{task.title}</p>
-              <p>{task.description}</p>
-            </div>
-          )
-        )}
-      </div>
-      <div className="text-4xl p-2 flex justify-center">
-        <Image src={logoTap} alt="" width={150} height={150} />
-      </div>
-      <div className=" bg-white w-[450px] h-auto p-6 rounded-lg">
-        <form onSubmit={handleSubmit(submit)}>
-          <div className="grid overflow-hidden grid-rows-1 gap-4 pb-2">
-            <p className="text-4xl font-bold flex justify-center">Login</p>
-            <div className="pb-2">
-              <Input
-                id="username"
-                name="username"
-                type="username"
-                placeholder="username"
-                label="Username"
-                layout="basic"
-                onChange={() => {}}
-                value=""
-                register={register}
-                registerOptions={{ required: true }}
-                autoComplete="username"
-                labelClassName="text-md p-1 "
-                inputClassName="border-2 rounded-md p-2 focus:outline-none"
-                containerClassName="flex flex-col"
-              />
+      <div className="">
+        <div className="p-10">
+          <form onSubmit={handleSubmit(submit)}>
+            <div className="grid overflow-hidden grid-rows-1 gap-4 pb-2">
+              {/* Titulo */}
+              <p className="text-2xl font-bold flex text-white justify-start pb-3">
+                Sign in to NoCap
+              </p>
+              {/* google */}
+              <div className="flex justify-center pb-1">
+                <Button
+                  disabled={isSubmitting}
+                  className="w-full bg-white rounded-full p-2 flex justify-center "
+                >
+                  <Image
+                    src={GoogleLogo}
+                    alt="Google Logo"
+                    width={15}
+                    height={15}
+                  />
 
-              <div className="relative">
-                {errors.username && errors.username.type === "required" && (
-                  <span className="absolute top-0 left-0 w-full text-red-500">
-                    Username is required
+                  <span className="font-bold text-black text-sm capitalize ml-2">
+                    Sign in with Google
                   </span>
-                )}
+                </Button>
+              </div>
+              {/* apple */}
+              <div className="flex justify-center ">
+                <Button
+                  disabled={isSubmitting}
+                  className="w-full bg-white rounded-full p-2 flex justify-center"
+                >
+                  <Image
+                    src={AppleLogo}
+                    alt="Google Logo"
+                    width={25}
+                    height={25}
+                  />
+                  <span className="font-bold text-black text-sm capitalize ">
+                    Sign in with Apple
+                  </span>
+                </Button>
+              </div>
+              <div className="grid grid-cols-3 items-center">
+                <div className="col-span-1 h-0.5 bg-gray-600"></div>
+                <div className="col-span-1 text-center text-gray-600">or</div>
+                <div className="col-span-1 h-0.5 bg-gray-600"></div>
+              </div>
+              {/* input para correo o user */}
+              <div className="pb-8">
+                <Input
+                  id="username"
+                  name="username"
+                  type="username"
+                  placeholder="Phone, email, or username"
+                  layout="basic"
+                  onChange={() => {}}
+                  value=""
+                  register={register}
+                  registerOptions={{ required: true }}
+                  autoComplete="username"
+                  labelClassName="text-md p-1 text-white"
+                  inputClassName="text-input px-3 py-2 w-full h-full border-[1px] border-gray-600 bg-gray-800 rounded-lg text-gray-600 text-lg outline-none transition duration-300"
+                  containerClassName="flex flex-col text-gray-600"
+                />
+
+                <div className="relative">
+                  {errors.username && errors.username.type === "required" && (
+                    <span className="absolute top-0 left-0 w-full text-red-500">
+                      Username is required
+                    </span>
+                  )}
+                </div>
+              </div>
+              {/* boton de ingresar */}
+              <div className="flex justify-center ">
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-white rounded-full p-1"
+                >
+                  {!isSubmitting ? (
+                    <span className="font-bold text-black text-sm capitalize">
+                      Next
+                    </span>
+                  ) : (
+                    <ThreeDotsLoader />
+                  )}
+                </Button>
+              </div>
+              {/* boton de olvidar contraseña */}
+              <div className="flex justify-center pt-2">
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-black border-white border-[0.1rem] rounded-full p-1"
+                >
+                  {!isSubmitting ? (
+                    <span className="font-bold text-white text-sm capitalize">
+                      Forgot password?
+                    </span>
+                  ) : (
+                    <ThreeDotsLoader />
+                  )}
+                </Button>
+              </div>
+              <div className="pt-6 text-gray-600 text-sm flex">
+                <p>Dont have an account?</p>
+                <p className="text-blue-500 pl-1"> Sign up</p>
               </div>
             </div>
-            <div className="pb-2">
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Password"
-                layout="basic"
-                label="Password"
-                onChange={() => {}}
-                labelClassName="text-md p-1 "
-                value=""
-                register={register}
-                registerOptions={{ required: true }}
-                inputClassName="border-2 rounded-md p-2 focus:outline-none"
-                containerClassName="flex flex-col"
-                autoComplete="password"
-              />
-              <div className="relative">
-                {errors.password && errors.password.type === "required" && (
-                  <span className="absolute top-0 left-0 w-full text-red-500">
-                    Password is required
-                  </span>
-                )}
-              </div>
-            </div>
-            <div>
-              <Checkbox
-                id="rememberMe"
-                name="rememberMe"
-                checkboxClassName="flex items-center"
-                label="Remember me"
-                onChange={() => {}}
-              />
-            </div>
-            <div className="flex justify-center ">
-              <Button type="submit" disabled={isSubmitting}>
-                {!isSubmitting ? (
-                  <span className="font-bold bg-orange-600 px-5 py-2 rounded-xl text-white text-lg uppercase hover:bg-orange-900 duration-500">
-                    Sign in
-                  </span>
-                ) : (
-                  <ThreeDotsLoader />
-                )}
-              </Button>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </>
   );
